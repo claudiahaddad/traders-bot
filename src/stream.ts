@@ -74,8 +74,6 @@ export async function listenForMessages(client: Client, tradersGroup: Group) {
             if (!isMember) {
               log(`Adding new member ${senderInboxId} to Traders group...`);
               await tradersGroup.addMembers([senderInboxId]);
-              const welcomeMessage = `Welcome to the Traders group! We're so happy you're here. Share a quick intro here and follow the other members of the group!`;
-              await tradersGroup.send(welcomeMessage);
               await conversation.send(
                 `Hi! I've added you to the Traders group. Check your message requests to view!`
               );
