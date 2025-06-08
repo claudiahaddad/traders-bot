@@ -25,37 +25,37 @@ export async function findOrCreateTradersGroup(client: Client): Promise<Group> {
 
     log(`[INFO] Group created with ID: ${group.id}`);
 
-    // Add admin to group
+    // Add owner to group
     if (!TRADERS_ADMIN_ADDRESS) {
       log(`[ERROR] TRADERS_ADMIN_ADDRESS is not set`);
       return group;
     }
 
-    log(`[INFO] Adding admin ${TRADERS_ADMIN_ADDRESS} to group...`);
+    log(`[INFO] Adding owner ${TRADERS_ADMIN_ADDRESS} to group...`);
     try {
       await group.addMembers([TRADERS_ADMIN_ADDRESS]);
 
       // Wait a bit for the member to be added
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Verify admin was added and promote them
+      // Verify owner was added and promote them
       const members = await group.members();
-      const adminMember = members.find((member: any) =>
+      const ownerMember = members.find((member: any) =>
         member.accountAddresses?.some((id: any) =>
-          isSameString(id.address, TRADERS_ADMIN_ADDRESS)
+          isSameString(id.identifier, TRADERS_ADMIN_ADDRESS)
         )
       );
 
-      if (adminMember) {
-        await group.addAdmin(adminMember.inboxId);
-        log(`[SUCCESS] Added ${TRADERS_ADMIN_ADDRESS} as admin`);
+      if (ownerMember) {
+        await group.addSuperAdmin(ownerMember.inboxId);
+        log(`[SUCCESS] Added ${TRADERS_ADMIN_ADDRESS} as super admin (owner)`);
       } else {
         log(
-          `[WARNING] Could not find member ${TRADERS_ADMIN_ADDRESS} to add as admin`
+          `[WARNING] Could not find member ${TRADERS_ADMIN_ADDRESS} to add as super admin`
         );
       }
     } catch (error) {
-      log(`[ERROR] Failed to add admin: ${error}`);
+      log(`[ERROR] Failed to add owner: ${error}`);
     }
 
     log(`[SUCCESS] Traders group created successfully`);
