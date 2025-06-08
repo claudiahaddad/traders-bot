@@ -2,7 +2,7 @@ import { Client, Group } from "@xmtp/node-sdk";
 import { log, isSameString } from "./helpers/utils.js";
 
 const GROUP_NAME = "Trader Chat ⭐";
-const TRADERS_ADMIN_ADDRESS = "0x8c9C3bF377A5bd6DD19981e73d7231E008fcAfDC";
+const TRADERS_ADMIN_ADDRESS = "0x80245b9C0d2Ef322F2554922cA86Cf211a24047F";
 
 export async function findOrCreateTradersGroup(client: Client): Promise<Group> {
   // Find existing group by listing all groups and filtering
