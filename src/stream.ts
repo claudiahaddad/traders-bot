@@ -9,7 +9,7 @@ const RETRY_DELAY_MS = 10000; // Delay between retries in milliseconds (10 secon
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 // --- End of Retry Logic ---
 
-export async function listenForMessages(client: Client, tradersGroup: Group) {
+export async function listenForMessages(client: Client, tradersGroup: Group<any>) {
     let retryCount = 0;
 
     // Outer loop for retry mechanism
